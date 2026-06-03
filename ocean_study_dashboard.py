@@ -4,8 +4,8 @@ import random
 # ==========================================
 # PAGE CONFIGURATION & SAFE OCEAN CSS THEME 🌊
 # ==========================================
-# Fixing the "black box" issue by relying on safe CSS and native Streamlit 
-# markdown instead of hard-coded HTML divs for the text content.
+# Fixing the legibility issues: forcing dark, readable text on the 
+# warning (math check) and info (lesson) boxes, and fixing the radio buttons (quiz).
 st.set_page_config(page_title="EPSS 15: Complete Oceanography Course", layout="wide", page_icon="🌊")
 
 st.markdown("""
@@ -25,10 +25,34 @@ st.markdown("""
         color: #006064 !important; /* Deep dark cyan */
     }
     
-    /* Ensure text is always readable (no black boxes!) */
+    /* Ensure general text is always readable */
     .stMarkdown p, .stMarkdown li {
         color: #004D40 !important;
         font-size: 16px;
+    }
+    
+    /* ==========================================
+       FIX 1: MATH CHECK & LESSON BOXES 
+       ========================================== */
+    /* Forces all text inside st.warning (yellow) and st.info (blue) to be a dark teal */
+    [data-testid="stAlert"] * {
+        color: #003333 !important; /* Darker color of the background, highly legible! */
+    }
+    
+    /* ==========================================
+       FIX 2: QUIZ RADIO BUTTONS 
+       ========================================== */
+    /* Light blue background for the quiz box, with dark text */
+    .stRadio > div[role="radiogroup"] {
+        background-color: #B2EBF2 !important; /* Light blue background */
+        padding: 15px;
+        border-radius: 10px;
+        border: 2px solid #00838F; /* Dark cyan border */
+    }
+    
+    /* Forces all quiz text to be dark cyan */
+    .stRadio > div[role="radiogroup"] * {
+        color: #004D40 !important; /* Darker color of the background */
     }
     
     .big-font { 
