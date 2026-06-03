@@ -5,7 +5,7 @@ import random
 # PAGE CONFIGURATION & SAFE OCEAN CSS THEME 🌊
 # ==========================================
 # Fixing the legibility issues: forcing dark, readable text on the 
-# warning (math check) and info (lesson) boxes, and fixing the radio buttons (quiz).
+# warning (math check), info (lesson) boxes, and specifically fixing the radio buttons (quiz text).
 st.set_page_config(page_title="EPSS 15: Complete Oceanography Course", layout="wide", page_icon="🌊")
 
 st.markdown("""
@@ -40,7 +40,7 @@ st.markdown("""
     }
     
     /* ==========================================
-       FIX 2: QUIZ RADIO BUTTONS 
+       FIX 2: QUIZ RADIO BUTTONS (Text Visibility Fix)
        ========================================== */
     /* Light blue background for the quiz box, with dark text */
     .stRadio > div[role="radiogroup"] {
@@ -50,9 +50,17 @@ st.markdown("""
         border: 2px solid #00838F; /* Dark cyan border */
     }
     
-    /* Forces all quiz text to be dark cyan */
+    /* Force ALL text inside the radio group (labels, spans, paragraphs) to be dark */
     .stRadio > div[role="radiogroup"] * {
-        color: #004D40 !important; /* Darker color of the background */
+        color: #003333 !important; 
+        font-weight: 500 !important;
+    }
+    
+    /* Force the actual question text above the radio buttons to be dark */
+    .stRadio > label, .stRadio > label * {
+        color: #004D40 !important;
+        font-size: 18px !important;
+        font-weight: 800 !important;
     }
     
     .big-font { 
@@ -75,7 +83,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==========================================
-# COURSE DATA: COMPREHENSIVE MODULES
+# COURSE DATA: COMPREHENSIVE MODULES WITH EXPANDED QUIZ BANKS
 # ==========================================
 course_data = [
     {
@@ -109,10 +117,13 @@ Earth's elevations have a **bimodal distribution**: continents average 840 meter
             "Interpolation": "Predicting values between plotted data points on a graph.",
             "Active Margin": "A continental margin with a narrow shelf and a deep-sea trench (e.g., Pacific type)."
         },
-        "quiz": [
+        "quiz_bank": [
             {"q": "A piece of basalt (density 3.0 g/cm³) displaces 5 mL of water. What is its mass?", "options": ["1.6 g", "15 g", "8 g"], "a": "15 g"},
             {"q": "If the vertical scale is 4 cm/km and the horizontal scale is 0.5 cm/km, what is the Vertical Exaggeration?", "options": ["8x", "2x", "4.5x"], "a": "8x"},
-            {"q": "If contours on a bathymetric map are spaced very close together, this indicates:", "options": ["A flat plain", "A rapid change in elevation (steep)", "A deep sea trench specifically"], "a": "A rapid change in elevation (steep)"}
+            {"q": "If contours on a bathymetric map are spaced very close together, this indicates:", "options": ["A flat plain", "A rapid change in elevation (steep)", "A deep sea trench specifically"], "a": "A rapid change in elevation (steep)"},
+            {"q": "Predicting values *outside* the range of plotted points on a graph is called:", "options": ["Interpolation", "Extrapolation", "Shoaling"], "a": "Extrapolation"},
+            {"q": "What is the average density of the continental crust?", "options": ["3.0 g/cm³", "3.3 g/cm³", "2.7 g/cm³"], "a": "2.7 g/cm³"},
+            {"q": "Which ocean generally receives the most sediment from rivers?", "options": ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean"], "a": "Atlantic Ocean"}
         ]
     },
     {
@@ -146,10 +157,13 @@ Sediments are classified genetically:
             "CCD": "Calcite Compensation Depth; the depth below which no calcite is preserved.",
             "Chemogenic Sediment": "Sediment precipitated directly from dissolved minerals in water (e.g., manganese nodules)."
         },
-        "quiz": [
+        "quiz_bank": [
             {"q": "An island is 3,000 km (300,000,000 cm) away from a hotspot and is 30 million years old. What is the plate velocity?", "options": ["10 cm/yr", "1 cm/yr", "30 cm/yr"], "a": "10 cm/yr"},
             {"q": "Which biogenic sediment is likely to be found on the deep abyssal plain BELOW the CCD?", "options": ["Calcareous Ooze", "Siliceous Ooze", "Manganese Nodules"], "a": "Siliceous Ooze"},
-            {"q": "According to settling rules, which particle will take the LONGEST time to reach the ocean floor?", "options": ["A large sand grain", "A medium silt grain", "A tiny clay particle"], "a": "A tiny clay particle"}
+            {"q": "According to settling rules, which particle will take the LONGEST time to reach the ocean floor?", "options": ["A large sand grain", "A medium silt grain", "A tiny clay particle"], "a": "A tiny clay particle"},
+            {"q": "The Hawaiian Island chain is an example of what kind of tectonic feature?", "options": ["Convergent Boundary", "Transform Fault", "Hotspot / Mantle Plume"], "a": "Hotspot / Mantle Plume"},
+            {"q": "Mid-Ocean Ridges (like the Mid-Atlantic Ridge) are an example of this kind of plate boundary:", "options": ["Divergent", "Convergent", "Transform"], "a": "Divergent"},
+            {"q": "What mountain range is found immediately landward (eastward) of the Peru-Chile Trench?", "options": ["The Himalayas", "The Alps", "The Andes Mountains"], "a": "The Andes Mountains"}
         ]
     },
     {
@@ -182,10 +196,13 @@ Strong density stratification makes vertical ocean mixing go **slower**. Vertica
             "Pycnocline": "The region of rapid density change in the ocean.",
             "Hydrogen Bonding": "The chemical bond in water giving it high heat capacity and allowing ice to float."
         },
-        "quiz": [
+        "quiz_bank": [
             {"q": "If the total mass of an element in the ocean is 8 x 10^20 g, and the river flux is 4 x 10^10 g/yr, what is the residence time?", "options": ["2 x 10^10 yrs", "4 x 10^10 yrs", "2 x 10^5 yrs"], "a": "2 x 10^10 yrs"},
             {"q": "How many times larger is the H+ concentration in a solution with pH 3 compared to pH 6?", "options": ["30x", "300x", "1,000x"], "a": "1,000x"},
-            {"q": "Does strong density stratification make vertical ocean mixing go faster or slower?", "options": ["Faster", "Slower", "No effect"], "a": "Slower"}
+            {"q": "Does strong density stratification make vertical ocean mixing go faster or slower?", "options": ["Faster", "Slower", "No effect"], "a": "Slower"},
+            {"q": "At what latitudes are the highest amounts of surface water dissolved CO2 observed?", "options": ["The Tropics / Equator", "High latitudes / The poles", "Mid-latitudes"], "a": "High latitudes / The poles"},
+            {"q": "If part of an ice sheet melts into the ocean, what effect will this have on the seawater's density?", "options": ["Density will decrease", "Density will increase", "Density stays exactly the same"], "a": "Density will decrease"},
+            {"q": "What acts as a buffer in the ocean to keep it from becoming too acidic/basic?", "options": ["Silica", "Sodium Chloride", "Bicarbonate (HCO3-)"], "a": "Bicarbonate (HCO3-)"}
         ]
     },
     {
@@ -213,10 +230,13 @@ While not strict math, you must know your vectors!
             "Western Boundary Current": "Fast, deep ocean currents on the western side of ocean basins.",
             "Thermohaline Circulation": "Deep-ocean circulation driven by temperature and salinity density gradients."
         },
-        "quiz": [
+        "quiz_bank": [
             {"q": "The net motion of water at a 90° angle to the prevailing wind direction is known as:", "options": ["Geostrophic Flow", "Ekman Transport", "Coriolis Force"], "a": "Ekman Transport"},
             {"q": "Name the two primary regions of deep water formation.", "options": ["North Atlantic and Antarctica", "Equator and Pacific", "Mediterranean and Gulf of Mexico"], "a": "North Atlantic and Antarctica"},
-            {"q": "In the Northern Hemisphere, the Coriolis effect deflects moving water to the:", "options": ["Right", "Left", "Equator"], "a": "Right"}
+            {"q": "In the Northern Hemisphere, the Coriolis effect deflects moving water to the:", "options": ["Right", "Left", "Equator"], "a": "Right"},
+            {"q": "What is the general name of the type of current that runs fast and deep along the eastern coast of continents (like the Gulf Stream)?", "options": ["Eastern Boundary Current", "Western Boundary Current", "Equatorial Current"], "a": "Western Boundary Current"},
+            {"q": "In order to maintain balance, dense water masses sinking into the ocean basins must cause less dense water to rise elsewhere. What is this process called?", "options": ["Subduction", "Upwelling", "Shoaling"], "a": "Upwelling"},
+            {"q": "Deep-ocean circulation driven by global density gradients (temperature and salinity) is also called:", "options": ["Thermohaline Circulation", "Ekman Spiral", "Geostrophic Current"], "a": "Thermohaline Circulation"}
         ]
     },
     {
@@ -248,10 +268,13 @@ The base of the marine food web relies on **Phytoplankton** (e.g., diatoms, cocc
             "Compensation Depth": "Depth where photosynthesis output equals respiration consumption.",
             "Biological Pump": "The biologically driven sequestration of carbon from the atmosphere to the deep sea."
         },
-        "quiz": [
+        "quiz_bank": [
             {"q": "What is the limiting nutrient for phytoplankton in the Southern Ocean?", "options": ["Nitrogen", "Iron", "Carbon"], "a": "Iron"},
             {"q": "What represents the Redfield Ratio of C : N : P?", "options": ["106 : 16 : 1", "1 : 16 : 106", "50 : 10 : 1"], "a": "106 : 16 : 1"},
-            {"q": "At the compensation depth, what two processes are perfectly equal?", "options": ["Evaporation and Precipitation", "Photosynthesis and Respiration", "Sinking and Upwelling"], "a": "Photosynthesis and Respiration"}
+            {"q": "At the compensation depth, what two processes are perfectly equal?", "options": ["Evaporation and Precipitation", "Photosynthesis and Respiration", "Sinking and Upwelling"], "a": "Photosynthesis and Respiration"},
+            {"q": "Which of the following is an example of phytoplankton?", "options": ["Diatoms", "Copepods", "Krill"], "a": "Diatoms"},
+            {"q": "What defines the Euphotic zone?", "options": ["It is the zone where respiration is highest", "It is where photosynthesis dominates", "It is completely dark"], "a": "It is where photosynthesis dominates"},
+            {"q": "In nutrient-rich upwelling regions, sinking organic carbon is degraded so rapidly by bacteria that it creates:", "options": ["A high-oxygen euphotic zone", "An Oxygen Minimum Zone (OMZ)", "Calcareous Oozes"], "a": "An Oxygen Minimum Zone (OMZ)"}
         ]
     },
     {
@@ -285,10 +308,13 @@ When whales die and sink to the aphotic deep sea, they create a 3-stage ecosyste
             "Pneumatocyst": "Gas-filled bladders in kelp that provide buoyancy.",
             "Chemosynthesis": "Biological conversion of carbon molecules/nutrients into organic matter using the oxidation of inorganic molecules (like hydrogen sulfide) rather than sunlight."
         },
-        "quiz": [
+        "quiz_bank": [
             {"q": "Why isn't the California mussel very abundant below the middle intertidal zone?", "options": ["It gets washed away by waves", "It avoids its predator, the sea star", "It needs exposure to air to breathe"], "a": "It avoids its predator, the sea star"},
             {"q": "What factor generally sets the UPPER limit of where an intertidal species can live?", "options": ["Biological factors (predation)", "Physical factors (desiccation/exposure)", "Food availability"], "a": "Physical factors (desiccation/exposure)"},
-            {"q": "How does the large limpet (Acmaea) avoid desiccation?", "options": ["It hides in kelp forests", "It uses a strong foot muscle to suction tightly to rocks", "It drinks massive amounts of seawater"], "a": "It uses a strong foot muscle to suction tightly to rocks"}
+            {"q": "How does the large limpet (Acmaea) avoid desiccation?", "options": ["It hides in kelp forests", "It uses a strong foot muscle to suction tightly to rocks", "It drinks massive amounts of seawater"], "a": "It uses a strong foot muscle to suction tightly to rocks"},
+            {"q": "Periwinkle snails primarily inhabit which tidal zone?", "options": ["Low tide zone", "Subtidal zone", "Spray to High tide zone"], "a": "Spray to High tide zone"},
+            {"q": "What purpose does a kelp’s pneumatocyst serve?", "options": ["Reproduction", "Gas-filled bladder for buoyancy", "Extracts salt from the water"], "a": "Gas-filled bladder for buoyancy"},
+            {"q": "During the sulfophilic stage of a whale fall, what provides the energy basis for the chemosynthetic ecosystem?", "options": ["Sunlight penetrating the deep sea", "Hydrogen sulfide generated by bacteria", "Phytoplankton raining from above"], "a": "Hydrogen sulfide generated by bacteria"}
         ]
     },
     {
@@ -320,30 +346,48 @@ The United Nations Convention on the Law of the Sea defines maritime boundaries:
             "Ocean Acidification": "Decreasing pH of ocean waters due to absorption of excess CO2, threatening calcareous organisms.",
             "EEZ": "Exclusive Economic Zone; a 200-nautical-mile zone where a coastal nation has jurisdiction over natural resources."
         },
-        "quiz": [
+        "quiz_bank": [
             {"q": "Which UNCLOS zone gives a nation the right to exploit resources up to 200 nautical miles from its coast?", "options": ["Territorial Waters", "High Seas", "Exclusive Economic Zone (EEZ)"], "a": "Exclusive Economic Zone (EEZ)"},
             {"q": "Ocean acidification primarily threatens marine organisms by:", "options": ["Making the water too hot", "Dissolving their calcium carbonate shells", "Depleting oxygen (OMZ)"], "a": "Dissolving their calcium carbonate shells"},
-            {"q": "FINAL JEOPARDY: What type of sedimentary rock formed from Miocene Coastal California sediments due to the cold California Current?", "options": ["Diatomite", "Basalt", "Limestone"], "a": "Diatomite"}
+            {"q": "FINAL JEOPARDY: What type of sedimentary rock formed from Miocene Coastal California sediments due to the cold California Current?", "options": ["Diatomite", "Basalt", "Limestone"], "a": "Diatomite"},
+            {"q": "The capture of non-target organisms (like sea turtles) during commercial fishing is known as:", "options": ["Overfishing", "Aquaculture", "Bycatch"], "a": "Bycatch"},
+            {"q": "Coral bleaching is primarily a phenomenon where corals:", "options": ["Turn white from lack of sunlight", "Expel their symbiotic zooxanthellae when stressed", "Absorb too much calcium carbonate"], "a": "Expel their symbiotic zooxanthellae when stressed"},
+            {"q": "According to UNCLOS, how far out do a nation's Territorial Waters extend?", "options": ["12 nautical miles", "200 nautical miles", "50 nautical miles"], "a": "12 nautical miles"}
         ]
     }
 ]
 
 # ==========================================
-# SESSION STATE INITIALIZATION
+# SESSION STATE & QUIZ RANDOMIZER LOGIC
 # ==========================================
+def get_randomized_quiz(module_idx):
+    if module_idx < len(course_data):
+        return random.sample(course_data[module_idx]["quiz_bank"], 3)
+    return []
+
 if 'module_progress' not in st.session_state:
     st.session_state.module_progress = 0
+
+if 'current_quiz' not in st.session_state:
+    st.session_state.current_quiz = get_randomized_quiz(0)
 
 def advance_module():
     if st.session_state.module_progress < len(course_data) - 1:
         st.session_state.module_progress += 1
+        # Generate new random questions for the next module
+        st.session_state.current_quiz = get_randomized_quiz(st.session_state.module_progress)
         st.balloons()
     else:
         st.session_state.module_progress = 99 # Code for 100% completion
         st.balloons()
 
+def refresh_quiz():
+    # Cycles the questions if the user gets them wrong
+    st.session_state.current_quiz = get_randomized_quiz(st.session_state.module_progress)
+
 def reset_course():
     st.session_state.module_progress = 0
+    st.session_state.current_quiz = get_randomized_quiz(0)
 
 # ==========================================
 # SIDEBAR: PROGRESS & APPENDIX
@@ -394,15 +438,15 @@ else:
     
     st.markdown("---")
     st.subheader("📝 Checkpoint Quiz")
-    st.caption("You must answer all questions correctly to proceed!")
+    st.caption("You must answer all questions correctly to proceed! If you get them wrong, a new set of questions will cycle in.")
     
-    # Render Quiz
-    quiz_data = current_module["quiz"]
+    # Render Randomized Quiz from Session State
+    quiz_data = st.session_state.current_quiz
     user_answers = []
     
     with st.container():
         for idx, q_dict in enumerate(quiz_data):
-            ans = st.radio(f"**{idx+1}. {q_dict['q']}**", q_dict["options"], index=None, key=f"q_{st.session_state.module_progress}_{idx}")
+            ans = st.radio(f"**{idx+1}. {q_dict['q']}**", q_dict["options"], index=None, key=f"q_{st.session_state.module_progress}_{q_dict['q']}")
             user_answers.append(ans)
             
         if st.button("Submit Checkpoint 🎯"):
@@ -417,4 +461,6 @@ else:
                 advance_module()
                 st.rerun()
             else:
-                st.error("Oops! One or more answers are incorrect. Review the lesson box and try again! 🔄")
+                st.error("Oops! One or more answers are incorrect. The questions have cycled. Review the lesson box and try again! 🔄")
+                refresh_quiz()
+                st.rerun()
